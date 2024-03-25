@@ -1,0 +1,80 @@
+{
+  "eslint.options": {
+    "extensions": [".js", ".vue", ".ts", ".tsx"]
+  },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "html",
+    "jsx",
+    "typescriptreact",
+    "html",
+    "vue",
+    "ts",
+    "tsx"
+  ],
+  "explorer.confirmDelete": false,
+  "[javascript]": {
+    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+  },
+  "files.insertFinalNewline": true,
+  "files.associations": {
+    "*.cjson": "jsonc",
+    "*.wxss": "css",
+    "*.wxs": "javascript",
+    "*.css": "tailwindcss"
+  },
+  "emmet.includeLanguages": {
+    "wxml": "html"
+  },
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "eslint.codeAction.disableRuleComment": {},
+  "workbench.startupEditor": "welcomePage",
+  "explorer.compactFolders": false,
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "javascript.validate.enable": false,
+  "editor.tabSize": 2,
+  "[less]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.colorDecorators": true
+  },
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  },
+  "json.maxItemsComputed": 1000000,
+  "javascript.preferences.quoteStyle": "single",
+  "git.enableSmartCommit": true,
+  "git.confirmSync": false,
+  "[css]": {
+    "editor.defaultFormatter": "aeschli.vscode-css-formatter"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "eslint.format.enable": true,
+  "[vue]": {
+    "editor.defaultFormatter":  "rvest.vs-code-prettier-eslint"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+  },
+  "[tsx]": {
+    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+  },
+  "[python]": {
+    "editor.formatOnType": true
+  },
+  "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+  "editor.formatOnPaste": false, // required
+  "editor.formatOnType": false, // required
+  "editor.formatOnSave": true, // optional
+  "editor.formatOnSaveMode": "file", // required to format on save
+  "files.autoSave": "onFocusChange",
+  "vue.codeActions.enabled": false,
+  "editor.inlineSuggest.showToolbar": "always",
+  "[shellscript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
