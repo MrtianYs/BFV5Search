@@ -27,6 +27,24 @@ export type ServersData = {
   }[];
 };
 
+export type Rotation = {
+  mapname: string;
+  index: number;
+  image: string;
+  mode: string;
+};
+
+export type Player = {
+  rank: number;
+  latency: number;
+  slot: number;
+  join_time: number;
+  user_id: number;
+  player_id: number;
+  name: string;
+  platoon: string;
+};
+
 export function getServers(params: {
   name: string;
   platform: string;
@@ -40,9 +58,16 @@ export function getServers(params: {
   });
 }
 
-export function getServerDetail(params) {
+export function getServerDetail(params: { gameid: string }): Promise<any> {
   return instance({
-    url: `${base}/bfv/detailedserver/`,
+    url: `${base}/bfv/detailedserver`,
+    params
+  });
+}
+
+export function getServerPlayers(params: { gameid: string }): Promise<any> {
+  return instance({
+    url: `${base}/bfv/players`,
     params
   });
 }
