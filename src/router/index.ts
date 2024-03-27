@@ -4,8 +4,13 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'main',
-    redirect: '/profile',
+    redirect: '/search',
     children: [
+      {
+        path: '/search',
+        name: 'search',
+        component: () => import('@/view/search.vue')
+      },
       {
         path: '/profile',
         name: 'profile',

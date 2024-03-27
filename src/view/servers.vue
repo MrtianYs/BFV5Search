@@ -195,8 +195,7 @@ const tableColumn = ref([
     key: 'description',
     dataKey: 'description',
     title: '描述',
-    width: 300,
-    fixed: 'right'
+    width: 500
   }
 ]);
 
@@ -285,7 +284,7 @@ function getDetail(rowData: ServersData['servers'][0]) {
 
 function searchProfile(row: any) {
   root?.setMenuActive('/profile');
-  router.push({ path: '/profile', query: { userId: row.user_id } });
+  router.push({ path: '/profile', query: { name: row.user_id } });
 }
 
 searchServers();

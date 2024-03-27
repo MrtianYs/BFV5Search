@@ -90,3 +90,13 @@ export function getPlayerInfo(params: {
     }
   });
 }
+
+export function checkBan(params: {
+  names?: string;
+  userIds?: string;
+}): Promise<any> {
+  return instance({
+    url: `${base}/bfban/checkban/`,
+    params
+  });
+}
