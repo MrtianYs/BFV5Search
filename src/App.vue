@@ -11,7 +11,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, provide } from 'vue';
 
 const activeIndex = ref('2');
+
+provide('root', {
+  setMenuActive(value) {
+    activeIndex.value = value;
+  }
+});
 </script>

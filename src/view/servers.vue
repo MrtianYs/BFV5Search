@@ -42,26 +42,23 @@
           fixed
         >
           <template #cell="{ column, rowData }">
+            <template v-if="column.key === 'prefix'">
+              <el-link type="primary" @click="getDetail(rowData)">
+                {{ rowData.prefix }}
+              </el-link>
+            </template>
             <div v-if="column.key === 'map'" class="h-20 p-2">
               <img :src="rowData.url" class="w-full h-full block rounded" />
             </div>
             <div v-if="column.key === 'currentMap'">
-              {{
-                map[rowData.currentMap as keyof typeof map] ||
-                rowData.currentMap
-              }}
+              {{ rowData.currentMap }}
             </div>
             <div v-if="column.key === 'country'">
               {{ rowData.country }} - {{ rowData.region }}
             </div>
             <div v-if="column.key === 'mode'">
-              {{ mode[rowData.mode as keyof typeof mode] || rowData.mode }}
+              {{ rowData.mode }}
             </div>
-            <template v-if="column.key === 'detail'">
-              <el-button type="primary" @click="getDetail(rowData)">
-                查看详情
-              </el-button>
-            </template>
           </template>
         </el-table-v2>
       </template>
@@ -84,8 +81,8 @@
       >
         <img :src="item.image" class="w-full rounded mb-2" />
         <div class="flex justify-between">
-          <span>{{ map[item.mapname as keyof typeof map] }}</span>
-          <span>{{ mode[item.mode as keyof typeof mode] }}</span>
+          <span>{{ item.mapname }}</span>
+          <span>{{ item.mode }}</span>
         </div>
       </el-card>
     </div>
@@ -97,20 +94,19 @@
             {{ detail.players.teamOne.name }}
           </el-tag>
           <el-table border :data="detail.players.teamOne.players">
-            <el-table-column prop="name" label="名称"></el-table-column>
+            <el-table-column prop="name" label="名称">
+              <template #default="{ row }">
+                <el-link type="primary" @click="searchProfile(row)">
+                  {{ row.name }}
+                </el-link>
+              </template>
+            </el-table-column>
             <el-table-column prop="latency" label="延迟">
               <template #default="{ row }"> {{ row.latency }}ms </template>
             </el-table-column>
             <el-table-column prop="slot" label="加入时间">
               <template #default="{ row }">
                 {{ dayjs(row['join_time'] / 1000).format('HH:mm:ss') }}
-              </template>
-            </el-table-column>
-            <el-table-column label="操作">
-              <template #default="{ row }">
-                <el-button type="primary" @click="searchProfile(row)">
-                  查看战绩
-                </el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -120,20 +116,19 @@
             {{ detail.players.teamTwo.name }}
           </el-tag>
           <el-table border :data="detail.players.teamTwo.players">
-            <el-table-column prop="name" label="名称"></el-table-column>
+            <el-table-column prop="name" label="名称">
+              <template #default="{ row }">
+                <el-link type="primary" @click="searchProfile(row)">
+                  {{ row.name }}
+                </el-link>
+              </template>
+            </el-table-column>
             <el-table-column prop="latency" label="延迟">
               <template #default="{ row }"> {{ row.latency }}ms </template>
             </el-table-column>
             <el-table-column prop="slot" label="加入时间">
               <template #default="{ row }">
                 {{ dayjs(row['join_time'] / 1000).format('HH:mm:ss') }}
-              </template>
-            </el-table-column>
-            <el-table-column label="操作">
-              <template #default="{ row }">
-                <el-button type="primary" @click="searchProfile(row)">
-                  查看战绩
-                </el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -144,8 +139,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { map, mode } from '@/const/enums';
+import { ref, inject } from 'vue';
 import {
   getServers,
   ServersData,
@@ -203,15 +197,10 @@ const tableColumn = ref([
     title: '描述',
     width: 300,
     fixed: 'right'
-  },
-  {
-    key: 'detail',
-    dataKey: 'detail',
-    title: '操作',
-    width: 130,
-    fixed: 'right'
   }
 ]);
+
+const root = inject('root');
 
 const loading = ref(false);
 const drawer = ref(false);
@@ -243,7 +232,7 @@ const detail = ref<{
 
 const searchForm = ref({
   name: 'bfv robot',
-  region: 'all',
+  region: 'asia',
   platform: 'pc'
 });
 
@@ -254,7 +243,7 @@ function searchServers() {
   getServers({
     ...searchForm.value,
     limit: 250,
-    lang: 'zh-tw'
+    lang: 'zh-cn'
   })
     .then((res) => {
       tableData.value = res.servers;
@@ -267,7 +256,7 @@ function searchServers() {
 function reset() {
   searchForm.value = {
     name: 'bfv robot',
-    region: 'all',
+    region: 'asia',
     platform: 'pc'
   };
   searchServers();
@@ -275,10 +264,10 @@ function reset() {
 
 function getDetail(rowData: ServersData['servers'][0]) {
   drawer.value = true;
-  getServerDetail({ gameid: rowData.gameId }).then((res) => {
+  getServerDetail({ gameid: rowData.gameId, lang: 'zh-cn' }).then((res) => {
     detail.value.rotation = res.rotation as Rotation[];
   });
-  getServerPlayers({ gameid: rowData.gameId }).then((res) => {
+  getServerPlayers({ gameid: rowData.gameId, lang: 'zh-cn' }).then((res) => {
     detail.value.players = {
       teamOne: {
         name: res.teams[0].shortName,
@@ -293,6 +282,7 @@ function getDetail(rowData: ServersData['servers'][0]) {
 }
 
 function searchProfile(row: any) {
+  root.setMenuActive('1');
   router.push({ path: '/profile', query: { userId: row.user_id } });
 }
 
