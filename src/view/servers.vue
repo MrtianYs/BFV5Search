@@ -200,7 +200,9 @@ const tableColumn = ref([
   }
 ]);
 
-const root = inject('root');
+const root = inject<{
+  setMenuActive: (path: string) => void;
+}>('root');
 
 const loading = ref(false);
 const drawer = ref(false);
@@ -264,10 +266,10 @@ function reset() {
 
 function getDetail(rowData: ServersData['servers'][0]) {
   drawer.value = true;
-  getServerDetail({ gameid: rowData.gameId, lang: 'zh-cn' }).then((res) => {
+  getServerDetail({ gameid: rowData.gameId }).then((res) => {
     detail.value.rotation = res.rotation as Rotation[];
   });
-  getServerPlayers({ gameid: rowData.gameId, lang: 'zh-cn' }).then((res) => {
+  getServerPlayers({ gameid: rowData.gameId }).then((res) => {
     detail.value.players = {
       teamOne: {
         name: res.teams[0].shortName,
@@ -282,7 +284,7 @@ function getDetail(rowData: ServersData['servers'][0]) {
 }
 
 function searchProfile(row: any) {
-  root.setMenuActive('1');
+  root?.setMenuActive('/profile');
   router.push({ path: '/profile', query: { userId: row.user_id } });
 }
 

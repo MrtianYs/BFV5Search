@@ -61,13 +61,32 @@ export function getServers(params: {
 export function getServerDetail(params: { gameid: string }): Promise<any> {
   return instance({
     url: `${base}/bfv/detailedserver`,
-    params
+    params: {
+      ...params,
+      lang: 'zh-cn'
+    }
   });
 }
 
 export function getServerPlayers(params: { gameid: string }): Promise<any> {
   return instance({
     url: `${base}/bfv/players`,
-    params
+    params: {
+      ...params,
+      lang: 'zh-cn'
+    }
+  });
+}
+
+export function getPlayerInfo(params: {
+  oid?: string;
+  name?: string;
+}): Promise<any> {
+  return instance({
+    url: `${base}/bfv/stats/`,
+    params: {
+      ...params,
+      lang: 'zh-cn'
+    }
   });
 }
