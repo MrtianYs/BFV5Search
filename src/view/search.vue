@@ -1,8 +1,8 @@
 <template>
   <div class="h-[calc(100vh_-_100px)] flex justify-center items-center">
-    <div class="w-[500px] h-[75%]">
-      <div class="flex justify-center mb-4">
-        <img class="w-[350px] rounded-lg" src="@/assets/header.jpg" alt="" />
+    <div class="w-full md:w-[500px] h-[75%]">
+      <div class="w-full flex justify-center mb-4">
+        <img class="w-full md:w-[350px] rounded-lg" src="@/assets/header.jpg" />
       </div>
       <el-input
         v-model="playerName"

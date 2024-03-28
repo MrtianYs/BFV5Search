@@ -1,6 +1,6 @@
 <template>
   <div class="h-[calc(100vh_-_140px)]">
-    <div class="w-[800px] m-auto mt-10 mb-10">
+    <div class="w-full lg:w-[1024px] xl:w-[1280px] m-auto mt-10 mb-10">
       <div class="flex flex-col items-center">
         <el-badge :value="userLevel">
           <el-avatar
@@ -14,7 +14,6 @@
             <img
               :src="playerDetail.base.rankImg"
               class="block w0-full h-full"
-              alt=""
             />
           </div>
           <el-text class="!text-[28px] block" type="primary">
@@ -32,62 +31,62 @@
         </div>
       </div>
     </div>
-    <div class="w-[800px] m-auto flex flex-wrap mb-4">
-      <div class="w-[25%] p-2">
+    <div class="w-full lg:w-[1024px] xl:w-[1280px] m-auto flex flex-wrap mb-4">
+      <div class="w-[50%] sm:w-[33.333%] lg:w-[25%] p-2">
         <div class="py-2 px-4 bg-slate-100 rounded-lg">
           <el-text>K/D：</el-text>
           <el-text>{{ playerDetail.base.killDeath }}</el-text>
         </div>
       </div>
-      <div class="w-[25%] p-2">
+      <div class="w-[50%] sm:w-[33.333%] lg:w-[25%] p-2">
         <div class="py-2 px-4 bg-slate-100 rounded-lg">
           <el-text>KPM：</el-text>
           <el-text>{{ playerDetail.base.killsPerMinute }}</el-text>
         </div>
       </div>
-      <div class="w-[25%] p-2">
+      <div class="w-[50%] sm:w-[33.333%] lg:w-[25%] p-2">
         <div class="py-2 px-4 bg-slate-100 rounded-lg">
           <el-text>SPM：</el-text>
           <el-text>{{ playerDetail.base.scorePerMinute }}</el-text>
         </div>
       </div>
-      <div class="w-[25%] p-2">
+      <div class="w-[50%] sm:w-[33.333%] lg:w-[25%] p-2">
         <div class="py-2 px-4 bg-slate-100 rounded-lg">
           <el-text>击杀数：</el-text>
           <el-text>{{ playerDetail.base.kills }}</el-text>
         </div>
       </div>
-      <div class="w-[25%] p-2">
+      <div class="w-[50%] sm:w-[33.333%] lg:w-[25%] p-2">
         <div class="py-2 px-4 bg-slate-100 rounded-lg">
           <el-text>死亡数：</el-text>
           <el-text>{{ playerDetail.base.deaths }}</el-text>
         </div>
       </div>
-      <div class="w-[25%] p-2">
+      <div class="w-[50%] sm:w-[33.333%] lg:w-[25%] p-2">
         <div class="py-2 px-4 bg-slate-100 rounded-lg">
           <el-text>爆头数：</el-text>
           <el-text>{{ playerDetail.base.headShots }}</el-text>
         </div>
       </div>
-      <div class="w-[25%] p-2">
+      <div class="w-[50%] sm:w-[33.333%] lg:w-[25%] p-2">
         <div class="py-2 px-4 bg-slate-100 rounded-lg">
-          <el-text>爆头射击数：</el-text>
+          <el-text>爆头射击：</el-text>
           <el-text>{{ playerDetail.base.heals }}</el-text>
         </div>
       </div>
-      <div class="w-[25%] p-2">
+      <div class="w-[50%] sm:w-[33.333%] lg:w-[25%] p-2">
         <div class="py-2 px-4 bg-slate-100 rounded-lg">
           <el-text>命中率：</el-text>
           <el-text>{{ playerDetail.base.accuracy }}</el-text>
         </div>
       </div>
-      <div class="w-[25%] p-2">
+      <div class="w-[50%] sm:w-[33.333%] lg:w-[25%] p-2">
         <div class="py-2 px-4 bg-slate-100 rounded-lg">
           <el-text>爆头率：</el-text>
           <el-text>{{ playerDetail.base.headshots }}</el-text>
         </div>
       </div>
-      <div class="w-[25%] p-2">
+      <div class="w-[50%] sm:w-[33.333%] lg:w-[25%] p-2">
         <div class="py-2 px-4 bg-slate-100 rounded-lg">
           <el-text>场均击杀：</el-text>
           <el-text>
@@ -101,7 +100,7 @@
           </el-text>
         </div>
       </div>
-      <div class="w-[25%] p-2">
+      <div class="w-[50%] sm:w-[33.333%] lg:w-[25%] p-2">
         <div class="py-2 px-4 bg-slate-100 rounded-lg">
           <el-text>场均死亡：</el-text>
           <el-text>
@@ -115,7 +114,7 @@
           </el-text>
         </div>
       </div>
-      <div class="w-[25%] p-2">
+      <div class="w-[50%] sm:w-[33.333%] lg:w-[25%] p-2">
         <div class="py-2 px-4 bg-slate-100 rounded-lg">
           <el-text>最远爆头：</el-text>
           <el-text>
@@ -123,7 +122,7 @@
           </el-text>
         </div>
       </div>
-      <div class="w-[25%] p-2">
+      <div class="w-[50%] sm:w-[33.333%] lg:w-[25%] p-2">
         <div class="py-2 px-4 bg-slate-100 rounded-lg">
           <el-text>最高连杀：</el-text>
           <el-text>
@@ -132,34 +131,33 @@
         </div>
       </div>
     </div>
-    <div class="w-[800px] m-auto flex flex-wrap mb-8">
-      <div class="w-[25%] p-2">
+    <div class="w-full lg:w-[1024px] xl:w-[1280px] m-auto flex flex-wrap mb-8">
+      <div class="w-[50%] sm:w-[33.333%] lg:w-[25%] p-2">
         <div class="py-2 px-4 bg-slate-100 rounded-lg">
           <el-text>最佳兵种：</el-text>
           <el-text>{{ playerDetail.base.bestClass }}</el-text>
         </div>
       </div>
-      <div class="w-[25%] p-2">
+      <div class="w-[50%] sm:w-[33.333%] lg:w-[25%] p-2">
         <div class="py-2 px-4 bg-slate-100 rounded-lg">
           <el-text>胜场：</el-text>
           <el-text>{{ playerDetail.base.wins }}</el-text>
         </div>
       </div>
-      <div class="w-[25%] p-2">
+      <div class="w-[50%] sm:w-[33.333%] lg:w-[25%] p-2">
         <div class="py-2 px-4 bg-slate-100 rounded-lg">
           <el-text>败场：</el-text>
           <el-text>{{ playerDetail.base.loses }}</el-text>
         </div>
       </div>
-      <div class="w-[25%] p-2">
+      <div class="w-[50%] sm:w-[33.333%] lg:w-[25%] p-2">
         <div class="py-2 px-4 bg-slate-100 rounded-lg">
           <el-text>胜率：</el-text>
           <el-text>{{ playerDetail.base.winPercent }}</el-text>
         </div>
       </div>
     </div>
-
-    <div class="w-[800px] px-2 m-auto">
+    <div class="w-full lg:w-[1024px] xl:w-[1280px] px-2 m-auto">
       <el-tabs type="card">
         <el-tab-pane label="武器">
           <el-card
@@ -264,7 +262,7 @@ const playTime = computed(() => {
 const userLevel = computed(() => {
   const { killDeath, killsPerMinute } = playerDetail.value.base;
   if (isHacker.value) return '挂壁';
-  if (killDeath && killsPerMinute) {
+  if (typeof killDeath === 'number' && typeof killsPerMinute === 'number') {
     if (killsPerMinute < 1 && killDeath < 1) return 'NOOB';
     if (killsPerMinute >= 1 && killsPerMinute <= 1.4) return '普通玩家';
     if (killDeath >= 1 && killDeath <= 2) return '普通玩家';
