@@ -61,12 +61,12 @@
                     <el-text class="md:!text-[18px]">{{ item.prefix }}</el-text>
                   </div>
                   <el-space wrap>
+                    <el-tag>{{ item.currentMap }}</el-tag>
                     <el-tag>{{ item.mode }}</el-tag>
                     <el-tag>{{ item.serverInfo }}</el-tag>
-                    <el-tag>{{ item.currentMap }}</el-tag>
                     <el-tag>{{ item.country }} - {{ item.region }}</el-tag>
                   </el-space>
-                  <div v-if="item.description" class="md:block mt-2">
+                  <div v-if="item.description" class="hidden md:block mt-2">
                     <el-text>{{ item.description }}</el-text>
                   </div>
                 </div>
