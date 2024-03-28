@@ -1,12 +1,14 @@
 <template>
   <div class="h-[calc(100vh_-_140px)]">
-    <div class="w-[600px] m-auto mt-10 mb-10">
+    <div class="w-[800px] m-auto mt-10 mb-10">
       <div class="flex flex-col items-center">
-        <el-avatar
-          :size="100"
-          :src="playerDetail.base.avatar"
-          class="mb-4"
-        ></el-avatar>
+        <el-badge :value="userLevel">
+          <el-avatar
+            :size="100"
+            :src="playerDetail.base.avatar"
+            class="mb-4"
+          ></el-avatar>
+        </el-badge>
         <div class="flex justify-center items-center !mb-3">
           <div class="bg-slate-400 w-8 h-8 rounded-full mr-2">
             <img
@@ -23,7 +25,9 @@
           <el-space>
             <el-tag>等级：{{ playerDetail.base.rank }}</el-tag>
             <el-tag type="info">游戏时间：{{ playTime }}</el-tag>
-            <el-tag :type="userLevel.type">BFBan：{{ userLevel.text }}</el-tag>
+            <el-tag :type="userStatus.type">
+              BFBan：{{ userStatus.text }}
+            </el-tag>
           </el-space>
         </div>
       </div>
@@ -128,7 +132,7 @@
         </div>
       </div>
     </div>
-    <div class="w-[800px] m-auto flex flex-wrap">
+    <div class="w-[800px] m-auto flex flex-wrap mb-8">
       <div class="w-[25%] p-2">
         <div class="py-2 px-4 bg-slate-100 rounded-lg">
           <el-text>最佳兵种：</el-text>
@@ -154,6 +158,42 @@
         </div>
       </div>
     </div>
+
+    <div class="w-[800px] px-2 m-auto">
+      <el-tabs type="card">
+        <el-tab-pane label="武器">
+          <el-card
+            v-for="(value, key) in getGuns"
+            :key="key"
+            shadow="hover"
+            :header="value[0]?.type"
+            class="mb-4"
+          >
+            <WeaponCard :data="value"></WeaponCard>
+          </el-card>
+        </el-tab-pane>
+        <el-tab-pane label="坦克">
+          <el-card>
+            <VehiclesCard :data="playerDetail.tanks"></VehiclesCard>
+          </el-card>
+        </el-tab-pane>
+        <el-tab-pane label="飞机">
+          <el-card>
+            <VehiclesCard :data="playerDetail.airplane"></VehiclesCard>
+          </el-card>
+        </el-tab-pane>
+        <el-tab-pane label="运输载具">
+          <el-card>
+            <VehiclesCard :data="playerDetail.cars"></VehiclesCard>
+          </el-card>
+        </el-tab-pane>
+        <el-tab-pane label="定点">
+          <el-card>
+            <VehiclesCard :data="playerDetail.fixed"></VehiclesCard>
+          </el-card>
+        </el-tab-pane>
+      </el-tabs>
+    </div>
   </div>
 </template>
 
@@ -161,18 +201,37 @@
 import { ref, computed } from 'vue';
 import { ElTag } from 'element-plus';
 import dayjs from 'dayjs';
-import { getPlayerInfo, checkBan } from '@/api/bfv/index';
+import {
+  getPlayerInfo,
+  checkBan,
+  getVehicles,
+  getWeapons
+} from '@/api/bfv/index';
 import { useRoute } from 'vue-router';
+import WeaponCard from '@/components/WeaponCard.vue';
+import VehiclesCard from '@/components/VehiclesCard.vue';
 
 const route = useRoute();
 
-const playerDetail = ref<{ base: Record<string, string | number> }>({
-  base: {}
+const playerDetail = ref<{
+  base: Record<string, any>;
+  guns: Record<string, any>[];
+  tanks: Record<string, any>[];
+  airplane: Record<string, any>[];
+  cars: Record<string, any>[];
+  fixed: Record<string, any>[];
+}>({
+  base: {},
+  guns: [],
+  tanks: [],
+  airplane: [],
+  cars: [],
+  fixed: []
 });
 const isHacker = ref(false);
 const isHackerStatus = ref();
 
-const userLevel = computed(() => {
+const userStatus = computed(() => {
   if (isHackerStatus.value === 5) return { type: 'warning', text: '处理中' };
   if (isHackerStatus.value === 6)
     return { type: 'warning', text: '管理投票中' };
@@ -201,6 +260,55 @@ const playTime = computed(() => {
   }
   return '';
 });
+
+const userLevel = computed(() => {
+  const { killDeath, killsPerMinute } = playerDetail.value.base;
+  if (isHacker.value) return '挂壁';
+  if (killDeath && killsPerMinute) {
+    if (killsPerMinute < 1 && killDeath < 1) return 'NOOB';
+    if (killsPerMinute >= 1 && killsPerMinute <= 1.4) return '普通玩家';
+    if (killDeath >= 1 && killDeath <= 2) return '普通玩家';
+    if (killsPerMinute > 1.4 || killDeath >= 2) return 'Pro哥';
+    if (killsPerMinute >= 2 || killDeath >= 3) return 'FPS天才';
+  }
+  return '查询中';
+});
+
+const assaultRifle = computed(() => filterGun('突击步枪'));
+const semiAutomaticRifle = computed(() => filterGun('半自动步枪'));
+const submachineGun = computed(() => filterGun('冲锋枪'));
+const lightMachineGun = computed(() => filterGun('轻机枪'));
+const shotgun = computed(() => filterGun('霰弹枪'));
+const singleActionRifle = computed(() => filterGun('单动式步枪'));
+const manualActionCarbine = computed(() => filterGun('手动枪机卡宾枪'));
+const pistolCarbine = computed(() => filterGun('手枪型卡宾枪'));
+const selfLoadingRifle = computed(() => filterGun('自动装填步枪'));
+const fixedMachineGun = computed(() => filterGun('固定式机枪'));
+const secondaryWeapon = computed(() => filterGun('副武器'));
+const melee = computed(() => filterGun('近战'));
+const equipped = computed(() => filterGun('配备'));
+
+const getGuns = computed(() => ({
+  assaultRifle: assaultRifle.value,
+  semiAutomaticRifle: semiAutomaticRifle.value,
+  selfLoadingRifle: selfLoadingRifle.value,
+  submachineGun: submachineGun.value,
+  lightMachineGun: lightMachineGun.value,
+  shotgun: shotgun.value,
+  singleActionRifle: singleActionRifle.value,
+  manualActionCarbine: manualActionCarbine.value,
+  pistolCarbine: pistolCarbine.value,
+  secondaryWeapon: secondaryWeapon.value,
+  fixedMachineGun: fixedMachineGun.value,
+  melee: melee.value,
+  equipped: equipped.value
+}));
+
+function filterGun(type: string) {
+  return playerDetail.value.guns
+    .filter((item) => item.type === type)
+    .sort((a, b) => b.killsPerMinute - a.killsPerMinute);
+}
 
 function setHistory({
   userName,
@@ -232,6 +340,29 @@ function searchByName(name: string) {
     name
   }).then((res) => {
     setData(res);
+  });
+
+  getWeapons({ name }).then((res) => {
+    playerDetail.value.guns = res.weapons;
+  });
+
+  getVehicles({ name }).then((res) => {
+    res.vehicles.map((item: any) => {
+      if (item.type === '飞机') playerDetail.value.airplane.push(item);
+      if (item.type === '坦克') playerDetail.value.tanks.push(item);
+      if (item.type === '运输载具') playerDetail.value.cars.push(item);
+      if (item.type === '定点') playerDetail.value.fixed.push(item);
+    });
+    playerDetail.value.airplane.sort(
+      (a, b) => b.killsPerMinute - a.killsPerMinute
+    );
+    playerDetail.value.tanks.sort(
+      (a, b) => b.killsPerMinute - a.killsPerMinute
+    );
+    playerDetail.value.cars.sort((a, b) => b.killsPerMinute - a.killsPerMinute);
+    playerDetail.value.fixed.sort(
+      (a, b) => b.killsPerMinute - a.killsPerMinute
+    );
   });
 
   checkBan({ names: name }).then((res) => {

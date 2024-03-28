@@ -100,3 +100,27 @@ export function checkBan(params: {
     params
   });
 }
+
+export function getWeapons(params: {
+  name: string;
+}): Promise<Record<string, any>> {
+  return instance({
+    url: `${base}/bfv/weapons/`,
+    params: {
+      ...params,
+      lang: 'zh-cn'
+    }
+  });
+}
+
+export function getVehicles(params: {
+  name: string;
+}): Promise<Record<string, any>> {
+  return instance({
+    url: `${base}/bfv/vehicles/`,
+    params: {
+      ...params,
+      lang: 'zh-cn'
+    }
+  });
+}

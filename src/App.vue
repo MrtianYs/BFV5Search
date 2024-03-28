@@ -6,7 +6,7 @@
     router
   >
     <el-menu-item>
-      <img class="w-40" src="@/assets/logo.svg" alt="" />
+      <img class="w-32" src="@/assets/logo.png" alt="" />
     </el-menu-item>
     <div class="flex-grow" />
     <el-menu-item index="/search">战绩查询</el-menu-item>
