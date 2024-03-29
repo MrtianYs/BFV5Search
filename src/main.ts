@@ -5,6 +5,7 @@ import ElementPlus from 'element-plus';
 import './common/base.less';
 import 'element-plus/dist/index.css';
 import 'vue-virtual-scroller/dist/vue-virtual-scroller.css';
+// @ts-ignore
 import { DynamicScroller, DynamicScrollerItem } from 'vue-virtual-scroller';
 
 const app = createApp(App).use(Router).use(ElementPlus);
