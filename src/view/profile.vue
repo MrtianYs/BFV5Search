@@ -10,15 +10,19 @@
           ></el-avatar>
         </el-badge>
         <div class="flex justify-center items-center !mb-3">
-          <div class="bg-slate-400 w-8 h-8 rounded-full mr-2">
-            <img
-              :src="playerDetail.base.rankImg"
-              class="block w0-full h-full"
-            />
+          <div class="bg-slate-400 w-7 h-7 rounded-full mr-2">
+            <img :src="playerDetail.base.rankImg" class="block w-full h-full" />
           </div>
           <el-text class="!text-[28px] block" type="primary">
             {{ playerDetail.base.userName }}
           </el-text>
+          <el-link
+            class="ml-6 mt-2.5"
+            target="_blank"
+            :href="`https://battlefieldtracker.com/bfv/profile/origin/${playerDetail.base.userName}/gamereports`"
+          >
+            对局记录
+          </el-link>
         </div>
         <div class>
           <el-space>
