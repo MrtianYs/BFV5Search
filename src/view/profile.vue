@@ -16,21 +16,33 @@
           <el-text class="!text-[28px] block" type="primary">
             {{ playerDetail.base.userName }}
           </el-text>
-          <el-link
-            class="ml-6 mt-2.5"
-            target="_blank"
-            :href="`https://battlefieldtracker.com/bfv/profile/origin/${playerDetail.base.userName}/gamereports`"
-          >
-            对局记录
-          </el-link>
         </div>
-        <div class>
+        <div class="mb-4">
           <el-space>
             <el-tag>等级：{{ playerDetail.base.rank }}</el-tag>
             <el-tag type="info">游戏时间：{{ playTime }}</el-tag>
+          </el-space>
+        </div>
+        <div class="flex items-center">
+          <el-space wrap>
             <el-tag :type="userStatus.type">
               BFBan：{{ userStatus.text }}
             </el-tag>
+            <el-link
+              v-if="isHackerStatus"
+              :href="`https://bfban.com/player/${playerDetail.base.id}`"
+              type="primary"
+              target="_blank"
+            >
+              BFBan案件
+            </el-link>
+            <el-link
+              type="primary"
+              target="_blank"
+              :href="`https://battlefieldtracker.com/bfv/profile/origin/${playerDetail.base.userName}/gamereports`"
+            >
+              对局记录
+            </el-link>
           </el-space>
         </div>
       </div>
@@ -270,8 +282,8 @@ const userLevel = computed(() => {
     if (killsPerMinute < 1 && killDeath < 1) return 'NOOB';
     if (killsPerMinute >= 1 && killsPerMinute <= 1.4) return '普通玩家';
     if (killDeath >= 1 && killDeath <= 2) return '普通玩家';
-    if (killsPerMinute > 1.4 || killDeath >= 2) return 'Pro哥';
     if (killsPerMinute >= 2 || killDeath >= 3) return 'FPS天才';
+    if (killsPerMinute > 1.4 || killDeath >= 2) return 'Pro哥';
   }
   return '查询中';
 });
