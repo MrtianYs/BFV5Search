@@ -52,7 +52,7 @@ const router = useRouter();
 const headers = [Header01, Header02];
 
 const getHeaders = computed(() => {
-  const index = Math.floor(Math.random() * 2);
+  const index = Math.floor(Math.random() * headers.length);
   return headers[index];
 });
 
