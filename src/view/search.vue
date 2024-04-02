@@ -2,7 +2,7 @@
   <div class="h-[calc(100vh_-_100px)] flex justify-center items-center">
     <div class="w-full md:w-[500px] h-[75%]">
       <div class="w-full flex justify-center mb-4">
-        <img class="w-full md:w-[350px] rounded-lg" src="@/assets/header.jpg" />
+        <img class="w-full md:w-[350px] rounded-lg" :src="getHeaders" />
       </div>
       <el-input
         v-model="playerName"
@@ -40,14 +40,21 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
-
 import { Search, Close } from '@element-plus/icons-vue';
+import Header01 from '@/assets/header01.jpg';
+import Header02 from '@/assets/header02.jpg';
 
 const history = ref<{ userName: string; userId: string; avatar: string }[]>([]);
 const playerName = ref('');
 const router = useRouter();
+const headers = [Header01, Header02];
+
+const getHeaders = computed(() => {
+  const index = Math.floor(Math.random() * 2);
+  return headers[index];
+});
 
 history.value = JSON.parse(localStorage.getItem('players') || '[]');
 
