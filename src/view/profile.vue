@@ -279,11 +279,11 @@ const userLevel = computed(() => {
   const { killDeath, killsPerMinute } = playerDetail.value.base;
   if (isHacker.value) return '挂壁';
   if (typeof killDeath === 'number' && typeof killsPerMinute === 'number') {
-    if (killsPerMinute < 1 && killDeath < 1) return 'NOOB';
-    if (killsPerMinute >= 1 && killsPerMinute <= 1.4) return '普通玩家';
-    if (killDeath >= 1 && killDeath <= 2) return '普通玩家';
     if (killsPerMinute >= 2 || killDeath >= 3) return 'FPS天才';
     if (killsPerMinute > 1.4 || killDeath >= 2) return 'Pro哥';
+    if (killsPerMinute >= 1 && killsPerMinute <= 1.4) return '普通玩家';
+    if (killDeath >= 1 && killDeath <= 2) return '普通玩家';
+    if (killsPerMinute < 1 && killDeath < 1) return 'NOOB';
   }
   return '查询中';
 });
