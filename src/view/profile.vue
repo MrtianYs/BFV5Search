@@ -244,6 +244,7 @@ const playerDetail = ref<{
 });
 const isHacker = ref(false);
 const isHackerStatus = ref();
+const userId = ref('');
 
 const userStatus = computed(() => {
   if (isHackerStatus.value === 5) return { type: 'warning', text: '处理中' };
@@ -353,35 +354,37 @@ function searchByName(name: string) {
   getPlayerInfo({
     name
   }).then((res) => {
+    userId.value = res.userId;
     setData(res);
-  });
-
-  getWeapons({ name }).then((res) => {
-    playerDetail.value.guns = res.weapons;
-  });
-
-  getVehicles({ name }).then((res) => {
-    res.vehicles.map((item: any) => {
-      if (item.type === '飞机') playerDetail.value.airplane.push(item);
-      if (item.type === '坦克') playerDetail.value.tanks.push(item);
-      if (item.type === '运输载具') playerDetail.value.cars.push(item);
-      if (item.type === '定点') playerDetail.value.fixed.push(item);
+    getWeapons({ name }).then((res) => {
+      playerDetail.value.guns = res.weapons;
     });
-    playerDetail.value.airplane.sort(
-      (a, b) => b.killsPerMinute - a.killsPerMinute
-    );
-    playerDetail.value.tanks.sort(
-      (a, b) => b.killsPerMinute - a.killsPerMinute
-    );
-    playerDetail.value.cars.sort((a, b) => b.killsPerMinute - a.killsPerMinute);
-    playerDetail.value.fixed.sort(
-      (a, b) => b.killsPerMinute - a.killsPerMinute
-    );
-  });
 
-  checkBan({ names: name }).then((res) => {
-    isHacker.value = res.names[name.toLocaleLowerCase()].hacker;
-    isHackerStatus.value = res.names[name.toLocaleLowerCase()].status;
+    getVehicles({ name }).then((res) => {
+      res.vehicles.map((item: any) => {
+        if (item.type === '飞机') playerDetail.value.airplane.push(item);
+        if (item.type === '坦克') playerDetail.value.tanks.push(item);
+        if (item.type === '运输载具') playerDetail.value.cars.push(item);
+        if (item.type === '定点') playerDetail.value.fixed.push(item);
+      });
+      playerDetail.value.airplane.sort(
+        (a, b) => b.killsPerMinute - a.killsPerMinute
+      );
+      playerDetail.value.tanks.sort(
+        (a, b) => b.killsPerMinute - a.killsPerMinute
+      );
+      playerDetail.value.cars.sort(
+        (a, b) => b.killsPerMinute - a.killsPerMinute
+      );
+      playerDetail.value.fixed.sort(
+        (a, b) => b.killsPerMinute - a.killsPerMinute
+      );
+    });
+
+    checkBan({ userIds: res.userId }).then((res) => {
+      isHacker.value = res.userids[userId.value].hacker;
+      isHackerStatus.value = res.userids[userId.value].status;
+    });
   });
 }
 
