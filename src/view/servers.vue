@@ -93,13 +93,15 @@
       <div
         v-for="item in detail.rotation"
         :key="item.index"
-        class="w-[50%] md:w-[33.333%] lg:w-[25%] p-2"
+        class="w-[50%] md:w-[33.333%] lg:w-[25%] 2xl:w-[calc(100%/6)] p-2"
       >
-        <div>
-          <img :src="item.image" class="w-full rounded mb-2" />
-          <div class="flex justify-between">
-            <span class="text-[14px]">{{ item.mapname }}</span>
-            <span class="text-[14px]">{{ item.mode }}</span>
+        <div class="relative">
+          <img :src="item.image" class="w-full rounded" />
+          <div
+            class="absolute w-full flex justify-between items-end bottom-0 bg-slate-200 bg-opacity-20 px-3 py-2 text-white"
+          >
+            <span class="text-[14px] md:text-[16px]">{{ item.mapname }}</span>
+            <span class="text-[12px] md:text-[14px]">{{ item.mode }}</span>
           </div>
         </div>
       </div>
@@ -243,11 +245,11 @@ function getDetail(rowData: ServersData['servers'][0]) {
   getServerPlayers({ gameid: rowData.gameId }).then((res) => {
     detail.value.players = {
       teamOne: {
-        name: res.teams[0].shortName,
+        name: res.teams[0].shortName || 'TEAM 1',
         players: res.teams[0].players
       },
       teamTwo: {
-        name: res.teams[1].shortName,
+        name: res.teams[1].shortName || 'TEAM 2',
         players: res.teams[1].players
       }
     };

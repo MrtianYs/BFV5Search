@@ -16,10 +16,15 @@ const routes: RouteRecordRaw[] = [
         name: 'profile',
         component: () => import('@/view/profile.vue')
       },
+      // {
+      //   path: '/servers',
+      //   name: 'servers',
+      //   component: () => import('@/view/servers.vue')
+      // },
       {
         path: '/servers',
         name: 'servers',
-        component: () => import('@/view/servers.vue')
+        component: () => import('@/view/servers-v2.vue')
       }
     ]
   }

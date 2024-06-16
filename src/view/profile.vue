@@ -224,6 +224,7 @@ import {
 import { useRoute } from 'vue-router';
 import WeaponCard from '@/components/WeaponCard.vue';
 import VehiclesCard from '@/components/VehiclesCard.vue';
+import { bfbanState } from '@/utils';
 
 const route = useRoute();
 
@@ -247,18 +248,7 @@ const isHackerStatus = ref();
 const userId = ref('');
 
 const userStatus = computed(() => {
-  if (isHackerStatus.value === 5) return { type: 'warning', text: '处理中' };
-  if (isHackerStatus.value === 6)
-    return { type: 'warning', text: '管理投票中' };
-  if (isHackerStatus.value === 1) return { type: 'danger', text: '石锤' };
-  if (isHackerStatus.value === 2) return { type: 'warning', text: '待自证' };
-  if (isHackerStatus.value === 3) return { type: 'success', text: 'Moss自证' };
-  if (isHackerStatus.value === 4) return { type: 'warning', text: '举报无效' };
-  if (isHackerStatus.value === 8) return { type: 'primary', text: '刷枪' };
-  return { type: 'success', text: '绿色玩家' } as {
-    type: any;
-    text: string;
-  };
+  return bfbanState(isHackerStatus.value);
 });
 
 const playTime = computed(() => {

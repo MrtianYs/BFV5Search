@@ -1,6 +1,9 @@
 import instance from '../request';
 
 const base = 'https://api.gametools.network';
+const baseUrl = 'https://www.bfvrobot.net';
+
+//www.bfvrobot.net/bfv/serverDetails?gameid=8644582110490&settings=true&region=all&platform=pc&lang=zh-CN
 
 export type ServersData = {
   servers: {
@@ -78,9 +81,20 @@ export function getServerPlayers(params: { gameid: string }): Promise<any> {
   });
 }
 
+export function getServerPlayersV2(params: { gameid: string }): Promise<any> {
+  return instance({
+    url: `https://api1.bfvrobot.net/api/players`,
+    params: {
+      ...params,
+      lang: 'zh-cn'
+    }
+  });
+}
+
 export function getPlayerInfo(params: {
   oid?: string;
   name?: string;
+  playerid?: string;
 }): Promise<any> {
   return instance({
     url: `${base}/bfv/stats/`,
@@ -91,9 +105,17 @@ export function getPlayerInfo(params: {
   });
 }
 
+export function getMultiplePlayers(params: { pids: string[] }[]) {
+  return instance({
+    url: `https://api1.bfvrobot.net/api/bfv/stats`,
+    params
+  });
+}
+
 export function checkBan(params: {
   names?: string;
   userIds?: string;
+  personaids: string[];
 }): Promise<any> {
   return instance({
     url: `${base}/bfban/checkban/`,
@@ -120,6 +142,17 @@ export function getVehicles(params: {
     url: `${base}/bfv/vehicles/`,
     params: {
       ...params,
+      lang: 'zh-cn'
+    }
+  });
+}
+
+export function getServerDetailV2(params: { gameid: string }): Promise<any> {
+  return instance({
+    url: `${baseUrl}/bfv/serverDetails`,
+    params: {
+      ...params,
+      settings: true,
       lang: 'zh-cn'
     }
   });
