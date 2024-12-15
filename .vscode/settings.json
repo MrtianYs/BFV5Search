@@ -15,7 +15,7 @@
   ],
   "explorer.confirmDelete": false,
   "[javascript]": {
-    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
   "files.insertFinalNewline": true,
   "files.associations": {
@@ -48,25 +48,25 @@
   "git.enableSmartCommit": true,
   "git.confirmSync": false,
   "[css]": {
-    "editor.defaultFormatter": "aeschli.vscode-css-formatter"
+    "editor.defaultFormatter": "vscode.css-language-features"
   },
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
   "eslint.format.enable": true,
   "[vue]": {
-    "editor.defaultFormatter":  "rvest.vs-code-prettier-eslint"
+    "editor.defaultFormatter":  "dbaeumer.vscode-eslint"
   },
   "[typescript]": {
-    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
   "[tsx]": {
-    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
   "[python]": {
     "editor.formatOnType": true
   },
-  "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
   "editor.formatOnPaste": false, // required
   "editor.formatOnType": false, // required
   "editor.formatOnSave": true, // optional
