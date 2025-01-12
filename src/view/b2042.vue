@@ -215,12 +215,8 @@
 import { ref, computed } from 'vue';
 import { ElTag } from 'element-plus';
 import dayjs from 'dayjs';
-import {
-  getPlayerInfo,
-  checkBan,
-  getVehicles,
-  getWeapons
-} from '@/api/bfv/index';
+import { getPlayerInfo, getVehicles, getWeapons } from '@/api/bfv/b2042';
+import { checkBan } from '@/api/bfv/index';
 import { useRoute } from 'vue-router';
 import WeaponCard from '@/components/WeaponCard.vue';
 import VehiclesCard from '@/components/VehiclesCard.vue';

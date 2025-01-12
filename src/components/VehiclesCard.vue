@@ -22,7 +22,6 @@
       <el-space wrap>
         <el-tag type="info"> KPM：{{ gun.killsPerMinute }} </el-tag>
         <el-tag type="info"> 击杀：{{ gun.kills }} </el-tag>
-        <el-tag type="info"> BOOM：{{ gun.destroyed }} </el-tag>
       </el-space>
     </div>
   </div>

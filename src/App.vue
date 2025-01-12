@@ -1,20 +1,5 @@
 <template>
-  <el-menu
-    :default-active="activeIndex"
-    mode="horizontal"
-    :ellipsis="false"
-    router
-  >
-    <el-menu-item>
-      <img class="w-32" src="@/assets/logo.png" alt="" />
-    </el-menu-item>
-    <div class="flex-grow" />
-    <el-menu-item index="/search">战绩查询</el-menu-item>
-    <el-menu-item index="/servers">服务器查询</el-menu-item>
-  </el-menu>
-  <div class="p-4">
-    <router-view></router-view>
-  </div>
+  <router-view></router-view>
 </template>
 
 <script setup lang="ts">

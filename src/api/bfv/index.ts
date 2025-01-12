@@ -115,7 +115,6 @@ export function getMultiplePlayers(params: { pids: string[] }[]) {
 export function checkBan(params: {
   names?: string;
   userIds?: string;
-  personaids: string[];
 }): Promise<any> {
   return instance({
     url: `${base}/bfban/checkban/`,
